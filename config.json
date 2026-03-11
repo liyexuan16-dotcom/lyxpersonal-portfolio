@@ -1,0 +1,37 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "src": "src/pages/Home.tsx"
+    },
+    {
+      "path": "/about",
+      "src": "src/pages/About.tsx"
+    },
+    {
+      "path": "/experience",
+      "src": "src/pages/Experience.tsx"
+    },
+    {
+      "path": "/portfolio",
+      "src": "src/pages/Portfolio.tsx"
+    },
+    {
+      "path": "/skills",
+      "src": "src/pages/Skills.tsx"
+    },
+    {
+      "path": "/campus",
+      "src": "src/pages/Campus.tsx"
+    },
+    {
+      "path": "/contact",
+      "src": "src/pages/Contact.tsx"
+    }
+  ],
+  "components": [
+    {"name": "Header", "src": "src/components/Header.tsx"},
+    {"name": "Footer", "src": "src/components/Footer.tsx"},
+    {"name": "PageWrapper", "src": "src/components/PageWrapper.tsx"}
+  ]
+}

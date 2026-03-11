@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--fontSans);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --shadow-x: var(--shadow-x);
+  --shadow-y: var(--shadow-y);
+  --shadow-blur: var(--shadow-blur);
+  --shadow-spread: var(--shadow-spread);
+  --shadow-color: var(--shadow-color);
+}
+
+:root {
+  --fontSans: "Inter";
+  /* American Retro Light Theme */
+  --background: rgb(244, 240, 230);
+  --foreground: rgb(44, 42, 41);
+  --card: rgb(253, 251, 247);
+  --card-foreground: rgb(44, 42, 41);
+  --popover: rgb(253, 251, 247);
+  --popover-foreground: rgb(44, 42, 41);
+  --primary: rgb(198, 53, 39); /* Retro Red */
+  --primary-foreground: rgb(253, 251, 247);
+  --secondary: rgb(49, 90, 140); /* Retro Navy Blue */
+  --secondary-foreground: rgb(253, 251, 247);
+  --muted: rgb(228, 222, 210);
+  --muted-foreground: rgb(115, 110, 105);
+  --accent: rgb(238, 186, 68); /* Mustard Yellow */
+  --accent-foreground: rgb(44, 42, 41);
+  --destructive: rgb(210, 43, 43);
+  --destructive-foreground: rgb(253, 251, 247);
+  --border: rgb(44, 42, 41); /* Hard black border */
+  --input: rgb(44, 42, 41);
+  --ring: rgb(198, 53, 39);
+  
+  --radius: 0rem; /* Sharp corners for print style */
+  
+  /* Hard offset shadows for retro posters */
+  --shadow-x: 5px;
+  --shadow-y: 5px;
+  --shadow-blur: 0px;
+  --shadow-spread: 0px;
+  --shadow-color: rgb(44, 42, 41);
+}
+
+.dark {
+  /* American Retro Dark Theme / Grunge */
+  --background: rgb(36, 36, 34);
+  --foreground: rgb(244, 240, 230);
+  --card: rgb(48, 48, 45);
+  --card-foreground: rgb(244, 240, 230);
+  --popover: rgb(48, 48, 45);
+  --popover-foreground: rgb(244, 240, 230);
+  --primary: rgb(204, 76, 62);
+  --primary-foreground: rgb(36, 36, 34);
+  --secondary: rgb(76, 120, 175);
+  --secondary-foreground: rgb(244, 240, 230);
+  --muted: rgb(73, 71, 68);
+  --muted-foreground: rgb(168, 163, 155);
+  --accent: rgb(211, 169, 78);
+  --accent-foreground: rgb(36, 36, 34);
+  --destructive: rgb(210, 43, 43);
+  --destructive-foreground: rgb(244, 240, 230);
+  --border: rgb(244, 240, 230);
+  --input: rgb(244, 240, 230);
+  --ring: rgb(204, 76, 62);
+  
+  /* Reverse shadow color */
+  --shadow-color: rgb(244, 240, 230);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    /* Soft noise pattern for paper feel */
+    background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 8px 8px;
+  }
+}
+
+@layer utilities {
+  .shadow-custom {
+    box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) var(--shadow-color);
+  }
+  .shadow-hover {
+    box-shadow: 2px 2px 0px 0px var(--shadow-color);
+  }
+  .retro-border {
+    @apply border-2 border-border;
+  }
+}
