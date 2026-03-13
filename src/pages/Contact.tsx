@@ -49,14 +49,43 @@ const Contact: React.FC = () => {
     }
   ];
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(contactInfo.email).then(() => {
-      console.log('Email copied to clipboard');
+  const copyText = async (text: string) => {
+    // Prefer modern async clipboard API when available (requires secure context on most browsers)
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    // Fallback for some mobile/tablet browsers (e.g. iPad Safari) or non-secure contexts
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '0';
+    textarea.style.left = '0';
+    textarea.style.opacity = '0';
+    textarea.style.pointerEvents = 'none';
+    document.body.appendChild(textarea);
+
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+
+    const ok = document.execCommand('copy');
+    document.body.removeChild(textarea);
+    if (!ok) throw new Error('execCommand(copy) failed');
+  };
+
+  const handleCopyEmail = async () => {
+    try {
+      await copyText(contactInfo.email);
       setHasCopied(true);
       setTimeout(() => setHasCopied(false), 2000);
-    }).catch(err => {
+    } catch (err) {
       console.error('Failed to copy email: ', err);
-    });
+      // Last resort: let user manually copy
+      window.prompt('复制失败，请手动复制邮箱：', contactInfo.email);
+    }
   };
 
   return (

@@ -21,8 +21,8 @@ const Header: React.FC = () => {
 
   const handleDownloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/lyxresume202511.pdf';
-    link.download = 'lyxresume202511.pdf';
+    link.href = '/lyxresume202603.pdf';
+    link.download = 'lyxresume202603.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

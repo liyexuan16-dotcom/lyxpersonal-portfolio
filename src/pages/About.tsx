@@ -85,15 +85,20 @@ const About: React.FC = () => {
             <div className="absolute -top-3 -left-3 w-10 h-10 bg-primary retro-border rotate-45 z-10" />
             
             <div className="aspect-[3/4] retro-border bg-background flex items-center justify-center relative overflow-hidden">
-              <img 
-                src="/lyxphoto.jpg"
-                alt="李叶萱个人照片"
-                onError={(e) => {
-                  console.error("Personal photo failed to load. Using fallback.");
-                  e.currentTarget.src = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=533&fit=crop";
-                }}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out z-0"
-              />
+              <picture className="w-full h-full">
+                <source srcSet="/lyxphoto.webp" type="image/webp" />
+                <img 
+                  src="/lyxphoto.jpg"
+                  alt="李叶萱个人照片"
+                  decoding="async"
+                  fetchPriority="high"
+                  onError={(e) => {
+                    console.error("Personal photo failed to load. Using fallback.");
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=533&fit=crop";
+                  }}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out z-0"
+                />
+              </picture>
             </div>
             
             <div className="mt-6 text-center">

@@ -147,6 +147,14 @@ const Portfolio: React.FC = () => {
     }
   };
 
+  const getWebpFallbackPair = (src: string) => {
+    // For local public assets like "/1.jpg", prefer the generated "/1.webp"
+    const isLocalPublic = src.startsWith('/') && !src.startsWith('//');
+    if (!isLocalPublic) return { webp: undefined as string | undefined, fallback: src };
+    const webp = src.replace(/\.(jpe?g|png)$/i, '.webp');
+    return { webp, fallback: src };
+  };
+
   return (
     <PageWrapper title="SELECT PORTFOLIO">
       
@@ -214,21 +222,30 @@ const Portfolio: React.FC = () => {
                 </div>
 
                 {/* Actual Image with smooth fade-in */}
-                <img 
-                  src={item.thumbnail} 
-                  alt={item.title}
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                  onLoad={(e) => {
-                    // Reveal the image when fully loaded
-                    e.currentTarget.classList.remove('opacity-0');
-                  }}
-                  onError={(e) => {
-                    // Keep the image hidden and let the fallback background show if it fails
-                    e.currentTarget.style.display = 'none';
-                  }}
-                  className="w-full h-full object-cover transition-all duration-500 opacity-0 group-hover:scale-[1.05] relative z-10"
-                />
+                {(() => {
+                  const { webp, fallback } = getWebpFallbackPair(item.thumbnail);
+                  return (
+                    <picture className="w-full h-full relative z-10">
+                      {webp ? <source srcSet={webp} type="image/webp" /> : null}
+                      <img 
+                        src={fallback} 
+                        alt={item.title}
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                        onLoad={(e) => {
+                          // Reveal the image when fully loaded
+                          e.currentTarget.classList.remove('opacity-0');
+                        }}
+                        onError={(e) => {
+                          // Keep the image hidden and let the fallback background show if it fails
+                          e.currentTarget.style.display = 'none';
+                        }}
+                        className="w-full h-full object-cover transition-all duration-500 opacity-0 group-hover:scale-[1.05]"
+                      />
+                    </picture>
+                  );
+                })()}
 
                 <div className="absolute inset-0 bg-primary opacity-10 mix-blend-multiply transition-opacity group-hover:opacity-30 z-20 pointer-events-none" />
                 
